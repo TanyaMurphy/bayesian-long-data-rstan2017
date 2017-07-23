@@ -17,9 +17,9 @@ nrow(UN)
 UN <- na.omit(UN)  # complete cases
 nrow(UN)
 
-with(UN, hist(gdp))
+with(UN, hist(gdp))  # generally, default bin width is too wide (too few bins)
 ?hist
-with(UN, hist(gdp, breaks="FD", col="gray"))  # change rule for bins
+with(UN, hist(gdp, breaks="FD", col="gray"))  # change rule for bins 
 box()
 
     # density estimates
@@ -27,7 +27,7 @@ box()
 with(UN, {
     hist(gdp, freq=FALSE, breaks="FD", col="lightgray", main="") # on density scale
     lines(density(gdp, from=0), lwd=2, lty=2)         # kernel estimate
-    lines(adaptiveKernel(gdp, from=0), lwd=2, lty=1)  # adaptive kernel
+    lines(adaptiveKernel(gdp, from=0), lwd=2, lty=1)  # adaptive kernel (car)
     rug(gdp)
     legend("topright", c("Fixed bandwidth", "Adaptive bandwidth"), 
            lty=2:1, lwd=2, inset=.02)
@@ -71,7 +71,7 @@ scatterplot(infant.mortality ~ gdp, data=UN, # enhanced
             id.method="identify")
 
         # transformation to linearity and symmetry
-
+symbox(~infant.mortality, data=UN)
             # marginal multivariate Box-Cox transformation
 summary(powerTransform(cbind(gdp, infant.mortality) ~ 1, data=UN))  
 
@@ -173,8 +173,14 @@ library("ggplot2")
 Prestige2 <- na.omit(Prestige)  # removing missing data
 
 ggplot(data=Prestige2, aes(x=income, y=prestige), show.legend=FALSE) + 
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE, lty="dashed", col="magenta") +
+  geom_smooth(method="loess", span=0.8, se=FALSE) +
+  facet_grid(. ~ type) 
+
+ggplot(data=Prestige2, aes(x=income, y=prestige), show.legend=FALSE) + 
     geom_point() +
     geom_smooth(method="lm", se=FALSE, lty="dashed", col="magenta") +
     geom_smooth(method="loess", span=0.8, se=FALSE) +
-    facet_grid(. ~ type) 
+    facet_wrap(~ type, ncol = 2) 
 

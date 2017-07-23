@@ -176,6 +176,7 @@ traceback()  # call stack to point of error
 library("car")      # load car package (for data and functions)
 head(Duncan, n=10)  # first 10 cases
 dim(Duncan)         # rows and columns
+str(Duncan)
 View(Duncan)        # in the RStudio data viewer
 summary(Duncan)     # invoking the summary() generic function
 help("Duncan")      # codebook for the data set

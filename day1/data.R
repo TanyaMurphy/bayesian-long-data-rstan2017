@@ -161,6 +161,8 @@ with(Freedman, {
 
 plot(crime ~ log10(density), data=Freedman)
 abline(lm(crime ~ log10(density), data=Freedman))
+plot(residuals(lm(crime ~ log10(density), data=Freedman)))
+abline(h = 0, col = "red")
 
 # Transforming and recoding variables
 
@@ -201,7 +203,7 @@ Guyer$coop.fourths <- with(Guyer,
 summary(Guyer$coop.fourths)
 
     # using recode() from the car package; see ?recode
-
+    # notice single quotes around lo:50... expression
 (Guyer$coop.2 <- recode(Guyer$percent.coop, 
             ' lo:50="low"; 50:hi="high" ', as.factor=TRUE))
 xtabs(~ coop.2, data=Guyer)  # more general than summary()

@@ -36,6 +36,7 @@ levels(Prestige.2$type)
 Prestige.2$type <- with(Prestige.2, 
     factor(type, levels=c("bc", "wc", "prof"))) # reorder levels
 Prestige.2$type
+as.numeric(Prestige.2$type)
 
         # generating contrasts from factors
 
@@ -114,6 +115,8 @@ linearHypothesis(mod.duncan.1, "income = education") # test of equal slopes
     # visualisation: effect plots
 
 library(effects)
+# library(lattice)
+# trellis.par.set(strip.background=list(col="lightgrey"))
 plot(allEffects(prestige.mod.3))
 
     # more on lm() (time permitting)
